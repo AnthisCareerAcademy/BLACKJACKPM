@@ -10,3 +10,14 @@ for suit in suits:
 
 print(deck)
 
+
+player_hand = []
+dealer_hand = []
+
+player_hand.append(deck.pop())
+dealer_hand.append(deck.pop())
+player_hand.append(deck.pop())
+dealer_hand.append(deck.pop())
+
+print(f'player hand: {player_hand}')
+print(f'dealer hand: {dealer_hand}')
