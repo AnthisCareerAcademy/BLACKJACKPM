@@ -15,14 +15,19 @@ random.shuffle(deck)
 # checking out the deck
 print(deck)
 
-print("Welcome to BlackJack")
+# Intro for the games stating your name and age, then rules
+print("Welcome to BlackJack\n")
 
 name = input('Would you state your name:')
 print('Hello, ' + name)
 age = input('Would you state your age:')
 print(age)
 
-print("The rule for this game is to get close to 21 or get to 21. ")
+print("\nThe rule for this game is to get close to 21 without going over. ")
+print("The Ace rules is 11 or 1 - it will auto pick based on if over 21 (built)")
+print("The split is to compare both player hands to dealer. Each hand scored individually.")
+print("The double down would be the player wins 2 pts awarded, if they lose then 2 pts goes to the dealer")
+print("The scores hand would be the total amount for player and dealer.")
 
 # visual test
 print(f"""          
@@ -52,13 +57,14 @@ print(f'dealer hand: {dealer_hand}')
 
 # hitting aspect of player
 while True:
-    hit = input('would you like to hit?(Y/N):')
-    if hit == 'Y':
+    hit = input('would you like to hit or stand?(H/S):')
+    if hit == 'H':
         player_hand.append(deck.pop())
         print(f'players hand: {player_hand}')
-    if hit == 'N':
+    if hit == 'S':
         print('moving on to dealer')
     break
+
 
 #credit
 print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
