@@ -1,10 +1,37 @@
 import random
+import string
 
 suits = ['♠', '♣', '♢', '♡']
 numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
 deck = []
 player_hand = []
 dealer_hand = []
+
+# NOT WORKING
+def draw_cards(hand) -> string:
+    drawn_hand = []
+    template = f"""          
+ ________ 
+|        | 
+|        |
+|        |
+|        |
+|________|"""
+    templatearray = [" ________ ", "|        |", "|        |", "|        |", "|        |", "|________|"]
+    print("\n".join(templatearray))
+
+    # building algorithm for drawing the hand
+    for index in range(len(hand)):
+        # so long as the index in not equal to any of those
+        if index == 0:
+            drawn_hand.append(" ________ ")
+        elif index == 1:
+            drawn_hand.append(f"|        |")
+        elif index != 1 and index != 5 and index != 3:
+            print("working")
+    #     for card in hand:
+    #
+
 
 for suit in suits:
     for num in numbers:
@@ -30,26 +57,29 @@ print("The double down would be the player wins 2 pts awarded, if they lose then
 print("The scores hand would be the total amount for player and dealer.")
 
 # visual test
-print(f"""          
-          ________           ________
-         |        |         |{deck[0][1]}       |
-         |        |         |        |
-         |   ?    |         |   {deck[0][0]}    |
-         |        |         |        |
-         |________|         |_______{deck[0][1]}|
-          ________           ________
-         |{deck[1][1]}       |         | {deck[2][0]}      |
-         |        |         |        |
-         |   {deck[1][0]}    |         |   {deck[2][1]}    |
-         |        |         |        | 
-         |_______{deck[1][1]}|         |_______{deck[2][0]}|
-              """)
+# print(f"""
+#           ________           ________
+#          |        |         |{deck[0][1]}       |
+#          |        |         |        |
+#          |   ?    |         |   {deck[0][0]}    |
+#          |        |         |        |
+#          |________|         |_______{deck[0][1]}|
+#           ________           ________
+#          |{deck[1][1]}       |         | {deck[2][0]}      |
+#          |        |         |        |
+#          |   {deck[1][0]}    |         |   {deck[2][1]}    |
+#          |        |         |        |
+#          |_______{deck[1][1]}|         |_______{deck[2][0]}|
+#               """)
 
 # populating the hands with cards
 player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
 player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
+
+# test
+draw_cards(player_hand)
 
 # showing the hands (example)
 print(f'player hand: {player_hand}')
@@ -66,4 +96,9 @@ while True:
     break
 
 # Total value of cards
+
+#credit
+print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
+print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
+print(f"Player Rules created by: Dazion, Logan, and Avonta.")
 
