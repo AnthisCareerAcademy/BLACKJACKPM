@@ -49,6 +49,7 @@ while True:
         print(f'players hand: {player_hand}')
     if hit == 'N':
         print('moving on to dealer')
+    break
 
 
 
