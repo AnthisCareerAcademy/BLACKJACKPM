@@ -59,3 +59,9 @@ while True:
     if hit == 'N':
         print('moving on to dealer')
     break
+
+#credit
+print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
+print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
+print(f"Player Rules created by: Dazion, Logan, and Avonta.")
+
