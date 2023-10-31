@@ -15,14 +15,18 @@ random.shuffle(deck)
 # checking out the deck
 print(deck)
 
-print("Welcome to BlackJack")
+print("Welcome to BlackJack\n")
 
 name = input('Would you state your name:')
 print('Hello, ' + name)
 age = input('Would you state your age:')
 print(age)
 
-print("The rule for this game is to get close to 21 or get to 21. ")
+print("\nThe rule for this game is to get close to 21 without going over. ")
+print("The Ace rules is 11 or 1 - it will auto pick based on if over 21 (built)")
+print("The split is to compare both player hands to dealer. Each hand scored individually.")
+print("The double down would be the player wins 2 pts awarded, if they lose then 2 pts goes to the dealer")
+print("The scores hand would be the total amount for player and dealer.")
 
 # visual test
 print(f"""          
