@@ -15,6 +15,7 @@ random.shuffle(deck)
 # checking out the deck
 print(deck)
 
+# Intro for the games stating your name and age, then rules
 print("Welcome to BlackJack\n")
 
 name = input('Would you state your name:')
@@ -56,10 +57,12 @@ print(f'dealer hand: {dealer_hand}')
 
 # hitting aspect of player
 while True:
-    hit = input('would you like to hit?(Y/N):')
-    if hit == 'Y':
+    hit = input('would you like to hit or stand?(H/S):')
+    if hit == 'H':
         player_hand.append(deck.pop())
         print(f'players hand: {player_hand}')
-    if hit == 'N':
+    if hit == 'S':
         print('moving on to dealer')
     break
+
+
