@@ -1,3 +1,20 @@
+import random
+
+suits = ['♠', '♣', '♢', '♡']
+numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
+deck = []
+player_hand = []
+dealer_hand = []
+
+for suit in suits:
+    for num in numbers:
+        deck.append([num, suit])
+# shuffling the deck
+random.shuffle(deck)
+
+# checking out the deck
+print(deck)
+
 print("Welcome to BlackJack")
 
 name = input('Would you state your name:')
@@ -7,19 +24,7 @@ print(age)
 
 print("The rule for this game is to get close to 21 or get to 21. ")
 
-suits = ['♠', '♣', '♢', '♡']
-numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
-deck = []
-
-for suit in suits:
-    for num in numbers:
-        deck.append([num, suit])
-
-
-import random
-random.shuffle(deck)
-print(deck)
-#visual
+# visual test
 print(f"""          
           ________           ________
          |        |         |{deck[0][1]}       |
@@ -35,15 +40,13 @@ print(f"""
          |_______{deck[1][1]}|         |_______{deck[2][0]}|
               """)
 
-player_hand = []
-dealer_hand = []
-
+# populating the hands with cards
 player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
 player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
 
-#showing the hands (example)
+# showing the hands (example)
 print(f'player hand: {player_hand}')
 print(f'dealer hand: {dealer_hand}')
 
@@ -56,11 +59,3 @@ while True:
     if hit == 'N':
         print('moving on to dealer')
     break
-
-
-
-
-
-
-
-
