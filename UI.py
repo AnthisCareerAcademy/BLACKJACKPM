@@ -21,3 +21,4 @@ dealer_hand.append(deck.pop())
 
 print(f'player hand: {player_hand}')
 print(f'dealer hand: {dealer_hand}')
+
