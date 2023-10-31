@@ -43,9 +43,11 @@ dealer_hand.append(deck.pop())
 player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
 
+#showing the hands (example)
 print(f'player hand: {player_hand}')
 print(f'dealer hand: {dealer_hand}')
 
+# hitting aspect of player
 while True:
     hit = input('would you like to hit?(Y/N):')
     if hit == 'Y':
