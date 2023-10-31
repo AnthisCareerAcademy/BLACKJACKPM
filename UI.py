@@ -65,4 +65,5 @@ while True:
         print('moving on to dealer')
     break
 
+# Total value of cards
 
