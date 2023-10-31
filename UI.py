@@ -1,6 +1,10 @@
 print("Welcome to BlackJack")
-input("Would you please state your name: ")
-input("Would you please state your age: ")
+
+name = input('Would you state your name:')
+print('Hello, ' + name)
+age = input('Would you state your age:')
+print(age)
+
 print("The rule for this game is to get close to 21 or get to 21. ")
 
 suits = ['♠', '♣', '♢', '♡']
