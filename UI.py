@@ -6,6 +6,14 @@ numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
 deck = []
 player_hand = []
 dealer_hand = []
+def card_value(card):
+    if card[0] in ['J', 'Q', 'K']:
+        return 10
+    elif card[0] == 'A':
+         return 11
+    else:
+        return int(card[0])
+
 
 # NOT WORKING
 def draw_cards(hand) -> string:
@@ -45,9 +53,9 @@ print(deck)
 # Intro for the games stating your name and age, then rules
 print("Welcome to BlackJack\n")
 
-name = input('Would you state your name:')
+name = input('Would you state your name: ')
 print('Hello, ' + name)
-age = input('Would you state your age:')
+age = input('Would you state your age: ')
 print(age)
 
 print("\nThe rule for this game is to get close to 21 without going over. ")
@@ -87,6 +95,16 @@ print(f'dealer hand: {dealer_hand}')
 
 # hitting aspect of player
 while True:
+    # Dealer Scoring
+    player_score = sum(card_value(card) for card in player_hand)
+    dealer_score = sum(card_value(card) for card in dealer_hand)
+    if dealer_score == player_score:
+        print('PUSH LOSER')
+    if dealer_score == 21:
+        print('Dealer Wins, Dealer has Blackjack')
+    if player_score == 21:
+        print('YOU GOT BLACKJACK')
+
     hit = input('would you like to hit or stand?(H/S):')
     if hit == 'H':
         player_hand.append(deck.pop())
@@ -95,7 +113,9 @@ while True:
         print('moving on to dealer')
         break
 
-# Total value of cards
+
+
+
 
 #Yes and No to play again
 play_again = input("do you want to play again? Yes or NO?\n")
