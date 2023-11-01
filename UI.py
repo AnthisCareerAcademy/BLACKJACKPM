@@ -7,14 +7,15 @@ deck = []
 player_hand = []
 player_split_hand = []
 dealer_hand = []
+
+
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
         return 10
     elif card[0] == 'A':
-         return 11
+        return 11
     else:
         return int(card[0])
-
 
 
 # NOT WORKING
@@ -82,6 +83,10 @@ def can_split(hand) -> bool:
     return hand[0][0] == hand[1][0]
 
 
+def standardize(string_to_standardize) -> string:
+    return string_to_standardize.lower().strip()
+
+
 create_deck()
 # checking out the deck
 # print(deck)
@@ -91,7 +96,14 @@ print("Welcome to BlackJack\n")
 
 name = input('Would you state your name: ')
 print('Hello, ' + name)
-age = input('Would you state your age: ')
+
+while True:
+
+    age = input('Would you state your age: ')
+    if age.isdecimal():
+        break
+    else:
+        print("Please type an integer")
 print(age)
 
 print("\nThe rule for this game is to get close to 21 without going over. ")
@@ -157,46 +169,26 @@ while True:
     if player_score == 21:
         print('YOU GOT BLACKJACK')
 
+    do_i_hit = standardize(input('would you like to hit or stand?(H/S): '))
+    if do_i_hit == 'h':
 
-    if hit == 'H':
-        player_hand.append(deck.pop())
-
-    do_i_hit = input('would you like to hit or stand?(H/S): ')
-    if do_i_hit == 'H':
-<<<<<<< Updated upstream
-        player_hand.append(deck.pop())
         print('dealing hands..."')
-        print(f'players hand: {player_hand}')
-=======
         hit(player_hand)
         print(f'players hand: {draw_cards(player_hand)}')
->>>>>>> Stashed changes
-    elif do_i_hit == 'S':
+
+    elif do_i_hit == 's':
         print('moving on to dealer')
         break
 
-
-
-
-
 # Yes and No to play again
-play_again = input("do you want to play again? Yes or NO?\n")
-if play_again == "Yes":
+play_again = standardize(input("do you want to play again? Yes or NO?\n"))
+if play_again == "yes":
     print("Starting a new game!")
-elif play_again == "No":
+elif play_again == "no":
     print("Game End!\n")
     # break out of game loop
 
-<<<<<<< Updated upstream
-
-
-
-
-
-#credit
-=======
 # credit
->>>>>>> Stashed changes
 print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
 print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
 print(f"Player Rules created by: Dazion, Logan, Damian, Zane and Avonta.")
