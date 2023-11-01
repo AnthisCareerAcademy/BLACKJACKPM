@@ -16,32 +16,59 @@ def card_value(card):
         return int(card[0])
 
 
-# NOT WORKING
-def draw_cards(hand) -> string:
-    drawn_hand = []
-    template = f"""          
- ________ 
-|        | 
-|        |
-|        |
-|        |
-|________|"""
-    templatearray = [" ________ ", "|        |", "|        |", "|        |", "|        |", "|________|"]
-    print("\n".join(templatearray))
 
+# NOT WORKING
+def draw_cards(hand):
+    complete_drawn_hand = []
+    drawn_card = []
+    mutable = []
+    # 10 chars long
+    # template = f"""
+    #  _________
+    # |         |
+    # |         |
+    # |         |
+    # |         |
+    # |_________|"""
+    #     templatearray = [" _________ ", "|         |", "|         |", "|         |", "|         |", "|_________|"]
     # building algorithm for drawing the hand
+    # however long the hand is that's how many cards we'll generate
     for index in range(len(hand)):
-        # so long as the index in not equal to any of those
-        if index == 0:
-            drawn_hand.append(" ________ ")
-        elif index == 1:
-            drawn_hand.append(f"|        |")
-        elif index != 1 and index != 5 and index != 3:
-            print("working")
+        for beep in range(6):
+            # so long as the index in not equal to any of those
+            if beep == 0:
+                drawn_card.append(" _________ ")
+            elif beep == 1:
+                drawn_card.append(f"|{hand[index][1]}        |")
+            elif beep == 3:
+                mutable.append(f"|   {hand[index][0]}")
+                if len(str(hand[index][0])) == 2:
+                    mutable.append("    |")
+                else:
+                    mutable.append("     |")
+                drawn_card.append("".join(mutable))
+                mutable.clear()
+            elif beep == 5:
+                drawn_card.append(f"|________{hand[index][1]}|")
+            else:
+                drawn_card.append("|         |")
+        complete_drawn_hand.append(drawn_card[:])
+        drawn_card.clear()
     #     for card in hand:
     #
+    # showing the hands (example)
+    # print(draw_cards(player_hand))
+    example = []
+    for level in range(6):
+        for card_index in range(len(complete_drawn_hand)):
+            example.append(complete_drawn_hand[card_index][level])
+        print("      ".join(example))
+        example.clear()
+
+
 def hit(hand):
     hand.append(deck.pop(0))
+
 
 def create_deck():
     for suit in suits:
@@ -49,14 +76,15 @@ def create_deck():
             deck.append([num, suit])
     # shuffling the deck
     random.shuffle(deck)
+
+
 def can_split(hand) -> bool:
     return hand[0][0] == hand[1][0]
 
 
-
 create_deck()
 # checking out the deck
-print(deck)
+# print(deck)
 
 # Intro for the games stating your name and age, then rules
 print("Welcome to BlackJack\n")
@@ -97,11 +125,24 @@ hit(player_hand)
 hit(dealer_hand)
 
 # test
-draw_cards(player_hand)
+# draw_cards(player_hand)
 
-# showing the hands (example)
-print(f'player hand: {player_hand}')
-print(f'dealer hand: {dealer_hand}')
+# # showing the hands (example)
+# # print(draw_cards(player_hand))
+# example = []
+# drawn_player_hand = draw_cards(player_hand)
+# for level in range(6):
+#     for card_index in range(len(drawn_player_hand)):
+#         example.append(drawn_player_hand[card_index][level])
+#     print("      ".join(example))
+#     example.clear()
+
+# example = []
+# for card_index in range(len(draw_cards(player_hand))):
+#     for level in range(6):
+
+print(f'player hand: {draw_cards(player_hand)}')
+print(f'dealer hand: {draw_cards(dealer_hand)}')
 
 # hitting aspect of player
 while True:
@@ -122,9 +163,14 @@ while True:
 
     do_i_hit = input('would you like to hit or stand?(H/S): ')
     if do_i_hit == 'H':
+<<<<<<< Updated upstream
         player_hand.append(deck.pop())
         print('dealing hands..."')
         print(f'players hand: {player_hand}')
+=======
+        hit(player_hand)
+        print(f'players hand: {draw_cards(player_hand)}')
+>>>>>>> Stashed changes
     elif do_i_hit == 'S':
         print('moving on to dealer')
         break
@@ -133,7 +179,7 @@ while True:
 
 
 
-#Yes and No to play again
+# Yes and No to play again
 play_again = input("do you want to play again? Yes or NO?\n")
 if play_again == "Yes":
     print("Starting a new game!")
@@ -141,16 +187,16 @@ elif play_again == "No":
     print("Game End!\n")
     # break out of game loop
 
+<<<<<<< Updated upstream
 
 
 
 
 
 #credit
+=======
+# credit
+>>>>>>> Stashed changes
 print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
 print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
 print(f"Player Rules created by: Dazion, Logan, Damian, Zane and Avonta.")
-
-
-
-
