@@ -91,11 +91,20 @@ while True:
     if hit == 'H':
         player_hand.append(deck.pop())
         print(f'players hand: {player_hand}')
-    if hit == 'S':
+    elif hit == 'S':
         print('moving on to dealer')
-    break
+        break
 
 # Total value of cards
+
+#Yes and No to play again
+play_again = input("do you want to play again? Yes or NO?\n")
+if play_again == "Yes":
+    print("Starting a new game!")
+elif play_again == "No":
+    print("Game End!\n")
+    # break out of game loop
+
 
 #credit
 print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
