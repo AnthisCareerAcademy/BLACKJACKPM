@@ -74,24 +74,30 @@ draw_cards(player_hand)
 print(f'player hand: {player_hand}')
 print(f'dealer hand: {dealer_hand}')
 
+dealer_score = 0
+
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
         return 10
     elif card[0] == 'A':
-        if dealer_score < 11:
-            return 11
         if dealer_score >= 11:
             return 1
+        if dealer_score < 11:
+            return 11
     else:
         return int(card[0])
-
 
 # hitting aspect of player
 while True:
     # hitting aspect of player
     dealer_score = sum(card_value(card) for card in dealer_hand)
     if dealer_score == 21:
+        print(dealer_hand)
         print('DEALER WINS, DEALER HAS BLACKJACK')
+        break
+    if dealer_score > 21:
+        print(dealer_hand)
+        print("DEALER BUST")
         break
     if dealer_score <= 16:
         hit(dealer_hand)
