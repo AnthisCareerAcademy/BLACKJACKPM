@@ -105,7 +105,7 @@ print(f'dealer hand: {dealer_hand}')
 
 # hitting aspect of player
 while True:
-<<<<<<< HEAD
+
     # Dealer Scoring
     player_score = sum(card_value(card) for card in player_hand)
     dealer_score = sum(card_value(card) for card in dealer_hand)
@@ -116,15 +116,14 @@ while True:
     if player_score == 21:
         print('YOU GOT BLACKJACK')
 
-    hit = input('would you like to hit or stand?(H/S):')
+
     if hit == 'H':
         player_hand.append(deck.pop())
-=======
+
     do_i_hit = input('would you like to hit or stand?(H/S): ')
     if do_i_hit == 'H':
-        hit(player_hand)
+        player_hand.append(deck.pop())
         print('dealing hands..."')
->>>>>>> 25304a4594ea5fa65444d0f07f473f7eb0ccdeae
         print(f'players hand: {player_hand}')
     elif do_i_hit == 'S':
         print('moving on to dealer')
@@ -141,6 +140,10 @@ if play_again == "Yes":
 elif play_again == "No":
     print("Game End!\n")
     # break out of game loop
+
+
+
+
 
 
 #credit
