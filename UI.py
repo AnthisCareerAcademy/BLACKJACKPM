@@ -31,23 +31,28 @@ def draw_cards(hand) -> string:
             print("working")
     #     for card in hand:
     #
+def hit(hand):
+    hand.append(deck.pop(0))
 
+def create_deck():
+    for suit in suits:
+        for num in numbers:
+            deck.append([num, suit])
+    # shuffling the deck
+    random.shuffle(deck)
+def can_split(hand) -> bool:
+    return hand[0][0] == hand[1][0]
 
-for suit in suits:
-    for num in numbers:
-        deck.append([num, suit])
-# shuffling the deck
-random.shuffle(deck)
-
+create_deck()
 # checking out the deck
 print(deck)
 
 # Intro for the games stating your name and age, then rules
 print("Welcome to BlackJack\n")
 
-name = input('Would you state your name:')
+name = input('Would you state your name: ')
 print('Hello, ' + name)
-age = input('Would you state your age:')
+age = input('Would you state your age: ')
 print(age)
 
 print("\nThe rule for this game is to get close to 21 without going over. ")
@@ -75,10 +80,10 @@ print("\nStarting The Game!")
 #               """)
 
 # populating the hands with cards
-player_hand.append(deck.pop())
-dealer_hand.append(deck.pop())
-player_hand.append(deck.pop())
-dealer_hand.append(deck.pop())
+hit(player_hand)
+hit(dealer_hand)
+hit(player_hand)
+hit(dealer_hand)
 
 # test
 draw_cards(player_hand)
@@ -89,11 +94,11 @@ print(f'dealer hand: {dealer_hand}')
 
 # hitting aspect of player
 while True:
-    hit = input('would you like to hit or stand?(H/S):')
-    if hit == 'H':
-        player_hand.append(deck.pop())
+    do_i_hit = input('would you like to hit or stand?(H/S): ')
+    if do_i_hit == 'H':
+        hit(player_hand)
         print(f'players hand: {player_hand}')
-    elif hit == 'S':
+    elif do_i_hit == 'S':
         print('moving on to dealer')
         break
 
