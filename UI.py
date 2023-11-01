@@ -5,6 +5,7 @@ suits = ['♠', '♣', '♢', '♡']
 numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
 deck = []
 player_hand = []
+player_split_hand = []
 dealer_hand = []
 
 # NOT WORKING
@@ -43,6 +44,8 @@ def create_deck():
 def can_split(hand) -> bool:
     return hand[0][0] == hand[1][0]
 
+
+
 create_deck()
 # checking out the deck
 print(deck)
@@ -60,6 +63,8 @@ print("The Ace rules is 11 or 1 - it will auto pick based on if over 21 (built)"
 print("The split is to compare both player hands to dealer. Each hand scored individually.")
 print("The double down would be the player wins 2 pts awarded, if they lose then 2 pts goes to the dealer")
 print("The scores hand would be the total amount for player and dealer.")
+
+print("\nStarting The Game!")
 
 # visual test
 # print(f"""
