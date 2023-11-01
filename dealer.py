@@ -105,8 +105,6 @@ while True:
     # DEALER SCORING
     player_score = sum(card_value(card) for card in player_hand)
     dealer_score = sum(card_value(card) for card in dealer_hand)
-    for value in dealer_hand:
-        dealer_score += value[0]
     if dealer_score == 21:
         print('DEALER WINS, DEALER HAS BLACKJACK')
 
