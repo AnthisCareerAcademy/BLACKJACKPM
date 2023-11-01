@@ -56,6 +56,8 @@ print("The split is to compare both player hands to dealer. Each hand scored ind
 print("The double down would be the player wins 2 pts awarded, if they lose then 2 pts goes to the dealer")
 print("The scores hand would be the total amount for player and dealer.")
 
+print("\nStarting The Game!")
+
 # visual test
 # print(f"""
 #           ________           ________
