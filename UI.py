@@ -5,6 +5,7 @@ suits = ['♠', '♣', '♢', '♡']
 numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
 deck = []
 player_hand = []
+player_split_hand = []
 dealer_hand = []
 
 # NOT WORKING
@@ -42,6 +43,8 @@ def create_deck():
     random.shuffle(deck)
 def can_split(hand) -> bool:
     return hand[0][0] == hand[1][0]
+
+
 
 create_deck()
 # checking out the deck
