@@ -95,6 +95,7 @@ while True:
     do_i_hit = input('would you like to hit or stand?(H/S): ')
     if do_i_hit == 'H':
         hit(player_hand)
+        print('dealing hands..."')
         print(f'players hand: {player_hand}')
     elif do_i_hit == 'S':
         print('moving on to dealer')
