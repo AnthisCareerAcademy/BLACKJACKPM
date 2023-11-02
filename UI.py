@@ -340,9 +340,11 @@ def split_game_loop():
 # example = []
 # for card_index in range(len(draw_cards(player_hand))):
 #     for level in range(6):
+
 game_loop()
 
 # credit
+
 print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
 print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
 print(f"Player Rules created by: Dazion, Logan, Damian, Zane and Avonta.")
