@@ -257,7 +257,7 @@ def game_loop(double_down):
         if player_score > 21:
             print(player_hand)
             print('Player busted')
-        if bust_check(player_score) and bust_check(dealer_score):
+        if bust_check(player_hand) and bust_check(dealer_hand):
             double_down = standardize(input('would you like to double down?(Y/N): '))
             if double_down == 'Y':
                 print('doubling bet..."')
