@@ -9,6 +9,7 @@ player_split_hand = []
 dealer_hand = []
 splitable = True
 
+
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
         return 10
@@ -69,15 +70,16 @@ def draw_cards(hand):
 def hit(hand):
     hand.append(deck.pop(0))
 
+
 def bust_check(hand) -> bool:
     # bust
     while True:
         hand_score = sum(card_value(card) for card in hand)
         if hand_score > 21:
             return True
-            break
         else:
             return False
+
 
 def create_deck():
     for suit in suits:
@@ -210,8 +212,6 @@ def game_loop():
 
         # Dealer Scoring
 
-
-
         if player_hand[0][0] == player_hand[1][0]:
             if splitable:
                 while True:
@@ -254,7 +254,6 @@ def game_loop():
             print(dealer_hand)
             print("STAYING")
             break
-
 
     if dealer_score == player_score:
         print('PUSH LOSER')
@@ -370,7 +369,6 @@ def split_game_loop():
 #     for level in range(6):
 
 game_loop()
-
 
 # credit
 
