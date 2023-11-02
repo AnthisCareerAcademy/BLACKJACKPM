@@ -95,7 +95,6 @@ player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
 player_hand.append(deck.pop())
 dealer_hand.append(deck.pop())
-
 # test
 draw_cards(player_hand)
 
