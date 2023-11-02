@@ -69,6 +69,15 @@ def draw_cards(hand):
 def hit(hand):
     hand.append(deck.pop(0))
 
+def bust_check(hand) -> bool:
+    # bust
+    while True:
+        hand_score = sum(card_value(card) for card in hand)
+        if hand_score > 21:
+            return True
+            break
+        else:
+            return False
 
 def create_deck():
     for suit in suits:
@@ -201,14 +210,7 @@ def game_loop():
 
         # Dealer Scoring
 
-        player_score = sum(card_value(card) for card in player_hand)
-        dealer_score = sum(card_value(card) for card in dealer_hand)
-        if dealer_score == player_score:
-            print('PUSH LOSER')
-        if dealer_score == 21:
-            print('Dealer Wins, Dealer has Blackjack')
-        if player_score == 21:
-            print('YOU GOT BLACKJACK')
+
 
         if player_hand[0][0] == player_hand[1][0]:
             if splitable:
@@ -234,6 +236,32 @@ def game_loop():
         elif do_i_hit == 'stand':
             print('moving on to dealer')
             break
+
+    player_score = sum(card_value(card) for card in player_hand)
+    dealer_score = sum(card_value(card) for card in dealer_hand)
+
+    while bust_check(dealer_hand):
+
+        # Dealer Code here
+        if dealer_score > 21:
+            print(dealer_hand)
+            print("DEALER BUST")
+            break
+        if dealer_score <= 16:
+            hit(dealer_hand)
+            continue
+        if dealer_score >= 17:
+            print(dealer_hand)
+            print("STAYING")
+            break
+
+
+    if dealer_score == player_score:
+        print('PUSH LOSER')
+    if dealer_score == 21:
+        print('Dealer Wins, Dealer has Blackjack')
+    if player_score == 21:
+        print('YOU GOT BLACKJACK')
 
     # Yes and No to play again
     play_again = standardize(input("do you want to play again? Yes or NO?\n"))
@@ -342,6 +370,7 @@ def split_game_loop():
 #     for level in range(6):
 
 game_loop()
+
 
 # credit
 
