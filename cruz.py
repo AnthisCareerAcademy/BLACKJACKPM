@@ -75,7 +75,7 @@ print(f'dealer hand: {dealer_hand}')
 
 dealer_score = 0
 
-
+# Testing
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
         return 10
