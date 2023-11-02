@@ -218,7 +218,7 @@ def game_loop(double_down):
 
                     do_i_hit = standardize(input('would you like to split? (YES/NO): '))
                     if do_i_hit == 'yes':
-                        split_game_loop()
+                        split_game_loop(double_down)
                         break
                     elif do_i_hit == 'no':
                         splitable = False
@@ -279,7 +279,7 @@ def game_loop(double_down):
     play_again = standardize(input("do you want to play again? Yes or NO?\n"))
     if play_again == "yes":
         print("Starting a new game!")
-        game_loop()
+        game_loop(None)
     elif play_again == "no":
         print("Game End!\n")
         # break out of game loop
@@ -381,7 +381,7 @@ def split_game_loop(double_down):
 # for card_index in range(len(draw_cards(player_hand))):
 #     for level in range(6):
 
-game_loop()
+game_loop(None)
 
 # credit
 
