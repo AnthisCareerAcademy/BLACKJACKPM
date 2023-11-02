@@ -201,6 +201,11 @@ while True:
         print(f'players hand: {draw_cards(player_hand)}')
 
 
+        print('dealing hands..."')
+        hit(player_hand)
+        print(f'players hand: {draw_cards(player_hand)}')
+
+
     elif do_i_hit == 's':
         print('moving on to dealer')
         break
@@ -220,6 +225,9 @@ elif play_again == "no":
 
 
 #credit
+
+# credit
+
 
 # credit
 
