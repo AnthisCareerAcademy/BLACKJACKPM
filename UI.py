@@ -253,7 +253,19 @@ def game_loop():
         if dealer_score >= 17:
             print(dealer_hand)
             print("STAYING")
+        if player_score > 21:
+            print(player_hand)
+            print('Player busted')
+        if bust_check(player_score) and bust_check(dealer_score):
+            double_down = standardize(input('would you like to double down?(Y/N): '))
+            if double_down == 'Y':
+                print('doubling bet..."')
+                game_loop(True)
+            if double_down == 'N':
+                print('moving to dealer')
             break
+
+
 
     if dealer_score == player_score:
         print('PUSH LOSER')
