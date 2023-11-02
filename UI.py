@@ -160,7 +160,7 @@ def standardize(string_to_standardize) -> string:
 #     # print(player_split_hand)
 #     # print(cards)
 
-def game_loop():
+def game_loop(double_down):
     global splitable
     if deck:
         deck.clear()
@@ -238,11 +238,12 @@ def game_loop():
             break
 
     player_score = sum(card_value(card) for card in player_hand)
-    dealer_score = sum(card_value(card) for card in dealer_hand)
 
-    while bust_check(dealer_hand):
 
-        # Dealer Code here
+    # Dealer Code here
+    while not bust_check(dealer_hand):
+        dealer_score = sum(card_value(card) for card in dealer_hand)
+
         if dealer_score > 21:
             print(dealer_hand)
             print("DEALER BUST")
@@ -284,7 +285,7 @@ def game_loop():
         # break out of game loop
 
 
-def split_game_loop():
+def split_game_loop(double_down):
     global splitable
     player_split_hand.append(player_hand.pop())
     # hitting aspect of player
