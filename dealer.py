@@ -6,7 +6,10 @@ numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
 deck = []
 player_hand = []
 dealer_hand = []
+dealer_wins =[]
 
+def hit(hand):
+    hand.append(deck.pop(0))
 # Valuing
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
@@ -105,12 +108,17 @@ while True:
     # DEALER SCORING
     player_score = sum(card_value(card) for card in player_hand)
     dealer_score = sum(card_value(card) for card in dealer_hand)
-    if dealer_score == player_score:
-        print('PUSH LOSER')
     if dealer_score == 21:
         print('DEALER WINS, DEALER HAS BLACKJACK')
-    if player_score == 21:
-        print('YOU GOT BLACKJACK')
+    if dealer_score <= 16:
+        hit(dealer_hand)
+        continue
+    if dealer_score >= 17:
+        print(dealer_hand)
+        print("staying")
+        print(dealer_score)
+        break
+    print(dealer_score)
 
 
 
@@ -123,8 +131,8 @@ while True:
     break
 
 # Total value of cards
-
+# testing testing
 #credit
-print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
-print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
-print(f"Player Rules created by: Dazion, Logan, and Avonta.")
+#print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
+#print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
+#print(f"Player Rules created by: Dazion, Logan, and Avonta.")
