@@ -209,6 +209,28 @@ while True:
     elif do_i_hit == 's':
         print('moving on to dealer')
         break
+#bust
+
+while True:
+    dealer_score = sum(card_value(card) for card in dealer_hand)
+    if dealer_score == 21:
+        print(dealer_hand)
+        print('DEALER WINS, DEALER HAS BLACKJACK')
+        break
+    if dealer_score > 21:
+        print(dealer_hand)
+        print("DEALER BUST")
+        break
+    if dealer_score <= 16:
+        hit(dealer_hand)
+        continue
+    if dealer_score >= 17:
+        print(dealer_hand)
+        print("STAYING")
+        break
+    if player_hand > 21:
+        print(player_hand)
+        print("player bust")
 
 # Yes and No to play again
 play_again = standardize(input("do you want to play again? Yes or NO?\n"))
