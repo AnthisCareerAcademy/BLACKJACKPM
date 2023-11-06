@@ -260,9 +260,9 @@ def game_loop(double_down):
 
     # comparisons here
     # True if player wins false if not
-    if who_wins(player_score, dealer_score) is True:
+    if (player_score, dealer_score) is True:
         print('Player wins')
-    elif who_wins(player_score, dealer_score) is False:
+    elif (player_score, dealer_score) is False:
         print('Dealer wins')
     else:
         double_down = standardize(input('would you like to double down?(Y/N): '))
