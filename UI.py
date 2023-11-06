@@ -236,6 +236,8 @@ def game_loop(double_down):
         elif do_i_hit == 'stand':
             print('moving on to dealer')
             break
+        else:
+            print('Please choose a valid option')
 
     player_score = sum(card_value(card) for card in player_hand)
 
@@ -244,36 +246,50 @@ def game_loop(double_down):
     while not bust_check(dealer_hand):
         dealer_score = sum(card_value(card) for card in dealer_hand)
 
-        if dealer_score > 21:
-            print(dealer_hand)
+        if bust_check(dealer_hand):
+            draw_cards(dealer_hand)
             print("DEALER BUST")
             break
-        if dealer_score <= 16:
+        elif dealer_score <= 16:
             hit(dealer_hand)
+            draw_cards(dealer_hand)
             continue
-        if dealer_score >= 17:
-            print(dealer_hand)
-            print("STAYING")
-        if player_score > 21:
-            print(player_hand)
-            print('Player busted')
-        if bust_check(player_hand) and bust_check(dealer_hand):
-            double_down = standardize(input('would you like to double down?(Y/N): '))
-            if double_down == 'Y':
-                print('doubling bet..."')
-                game_loop(True)
-            if double_down == 'N':
-                print('moving to dealer')
+        elif dealer_score >= 17:
+            draw_cards(dealer_hand)
             break
 
+    # comparisons here
+    # True if player wins false if not
+    if who_wins(player_score, dealer_score) is True:
+        print('Player wins')
+    elif who_wins(player_score, dealer_score) is False:
+        print('Dealer wins')
+    else:
+        double_down = standardize(input('would you like to double down?(Y/N): '))
+        if double_down == 'Y':
+            print('doubling bet..."')
+            game_loop(True)
+        # THIS IS USER STUFF NOT SUPPOSED TO BE IN DEALERS STUFF
+        #         if player_score > 21:
+        #             print(player_hand)
+        #             print('Player busted')
+        #         if bust_check(player_hand) and bust_check(dealer_hand):
+        #             double_down = standardize(input('would you like to double down?(Y/N): '))
+        #             if double_down == 'Y':
+        #                 print('doubling bet..."')
+        #                 game_loop(True)
+        #             if double_down == 'N':
+        #                 print('moving to dealer')
+        #             break
 
 
-    if dealer_score == player_score:
-        print('PUSH LOSER')
-    if dealer_score == 21:
-        print('Dealer Wins, Dealer has Blackjack')
-    if player_score == 21:
-        print('YOU GOT BLACKJACK')
+    # Some comparison work that some people didn't even finish???? -Martin
+    #     if dealer_score == player_score:
+    #         print('PUSH LOSER')
+    #     if dealer_score == 21:
+    #         print('Dealer Wins, Dealer has Blackjack')
+    #     if player_score == 21:
+    #         print('YOU GOT BLACKJACK')
 
     # Yes and No to play again
     play_again = standardize(input("do you want to play again? Yes or NO?\n"))
