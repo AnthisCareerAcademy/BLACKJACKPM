@@ -8,6 +8,8 @@ player_hand = []
 player_split_hand = []
 dealer_hand = []
 splitable = True
+dealer_points = 0
+player_points = 0
 
 
 def card_value(card):
@@ -111,6 +113,14 @@ def who_wins(player_score, dealer_score) -> bool:
         return True
     elif dealer_score == 21:
         return False
+    elif player_score > 21:
+        return False
+    elif dealer_score > 21:
+        return True
+    elif player_score > dealer_score:
+        return True
+    elif player_score < dealer_score:
+        return False
     else:
         return None
 
@@ -179,9 +189,7 @@ def who_wins(player_score, dealer_score) -> bool:
 #     # print(cards)
 
 def game_loop(double_down):
-    global splitable
-    dealer_points = 0
-    player_points = 0
+    global splitable, dealer_points, player_points
     player_score = 0
     dealer_score = 0
     if deck:
@@ -252,8 +260,8 @@ def game_loop(double_down):
 
             print('dealing hands..."')
             hit(player_hand)
-            print(f'players hand: {draw_cards(player_hand)}')
-
+            print(f'players hand: ')
+            draw_cards(player_hand)
         elif do_i_hit == 'stand':
             print('moving on to dealer')
             break
@@ -304,10 +312,10 @@ def game_loop(double_down):
             double_down = standardize(input('would you like to double down?(yes/no): '))
             if double_down == 'yes':
                 print('doubling bet..."')
-                break
                 game_loop(True)
+                break
             elif double_down == 'no':
-                pass
+                break
             else:
                 print("Please choose a valid option.")
         # THIS IS USER STUFF NOT SUPPOSED TO BE IN DEALERS STUFF
@@ -342,7 +350,7 @@ def game_loop(double_down):
 
 
 def split_game_loop(double_down):
-    global splitable
+    global splitable, player_points, dealer_points
     player_split_hand.append(player_hand.pop())
     # hitting aspect of player
     while True:
@@ -353,56 +361,117 @@ def split_game_loop(double_down):
         # card_value(card) for card in player_split_hand) else: player_score = sum(card_value(card) for card in
         # player_split_hand)
 
-        dealer_score = sum(card_value(card) for card in dealer_hand)
+        do_i_hit = standardize(input('would you like to hit or stand?(hit/stand): '))
+        if do_i_hit == 'hit':
+
+            print('dealing hands..."')
+            hit(player_hand)
+            print(f'players hand: ')
+            draw_cards(player_hand)
+            draw_cards(player_split_hand)
+        elif do_i_hit == 'stand':
+            break
+        else:
+            print('Please choose a valid option')
+
         player_score = sum(card_value(card) for card in player_hand)
-        if dealer_score == player_score:
-            print('PUSH LOSER')
-        if dealer_score == 21:
-            print('Dealer Wins, Dealer has Blackjack')
-        if player_score == 21:
-            print('YOU GOT BLACKJACK')
+        player_split_score = sum(card_value(card) for card in player_split_hand)
 
-        print("Player hands: ")
-        draw_cards(player_hand)
-        draw_cards(player_split_hand)
-        print("Dealer hand: ")
-        draw_cards(dealer_hand)
+        if bust_check(player_hand, True):
+            print("YOU BUSTED")
+            break
+
+    while True:
+
+        # Dealer Scoring if sum(card_value(card) for card in player_hand) > sum(card_value(card) for card in
+        # player_split_hand): player_score = sum(card_value(card) for card in player_hand) elif sum(card_value(card)
+        # for card in player_hand) < sum(card_value(card) for card in player_split_hand): player_score = sum(
+        # card_value(card) for card in player_split_hand) else: player_score = sum(card_value(card) for card in
+        # player_split_hand)
+
+        do_i_hit = standardize(input('would you like to hit or stand?(hit/stand): '))
+        if do_i_hit == 'hit':
+
+            print('dealing hands..."')
+            hit(player_split_hand)
+            print(f'players hand: ')
+            draw_cards(player_hand)
+            draw_cards(player_split_hand)
+        elif do_i_hit == 'stand':
+            break
+        else:
+            print('Please choose a valid option')
+
+        player_score = sum(card_value(card) for card in player_hand)
+
+        if bust_check(player_split_hand, True):
+            print("YOU BUSTED")
+            break
+
+    while not bust_check(dealer_hand, True):
+        dealer_score = sum(card_value(card) for card in dealer_hand)
+
+        if bust_check(dealer_hand, True):
+            print("DEALER BUST")
+            break
+        elif dealer_score <= 16:
+            hit(dealer_hand)
+            continue
+        elif dealer_score >= 17:
+            draw_cards(dealer_hand)
+            break
+
+    # comparisons here
+    # True if player wins false if not
+
+    if who_wins(player_score, dealer_score) or who_wins(player_split_score, dealer_score):
+        print('Player wins')
+        if double_down:
+            player_points += 2
+        else:
+            player_points += 1
+    elif not who_wins(player_score, dealer_score) or not who_wins(player_split_score, dealer_score):
+        print('Dealer wins')
+        if double_down:
+            dealer_points += 2
+        else:
+            dealer_points += 1
+
+    else:
         while True:
-            do_i_hit = standardize(input('would you like to hit or stand?(hit/stand): '))
-            if do_i_hit == 'hit':
-                draw_cards(dealer_hand)
-                print('dealing hands..."')
-                hit(player_hand)
-                print("Player hands: ")
-                draw_cards(player_hand)
-                draw_cards(player_split_hand)
-                print("Dealer hand: ")
-            elif do_i_hit == 'stand':
-                print("Player hands: ")
-                draw_cards(player_hand)
-                draw_cards(player_split_hand)
-                print("Dealer hand: ")
-                draw_cards(dealer_hand)
+
+            double_down = standardize(input('would you like to double down?(yes/no): '))
+            if double_down == 'yes':
+                print('doubling bet..."')
+                game_loop(True)
+                break
+            elif double_down == 'no':
                 break
             else:
-                print("Please choose a valid option")
+                print("Please choose a valid option.")
+            # THIS IS USER STUFF NOT SUPPOSED TO BE IN DEALERS STUFF
+            #         if player_score > 21:
+            #             print(player_hand)
+            #             print('Player busted')
+            #         if bust_check(player_hand) and bust_check(dealer_hand):
+            #             double_down = standardize(input('would you like to double down?(Y/N): '))
+            #             if double_down == 'Y':
+            #                 print('doubling bet..."')
+            #                 game_loop(True)
+            #             if double_down == 'N':
+            #                 print('moving to dealer')
+            #             break
 
-        while True:
+        # Some comparison work that some people didn't even finish???? -Martin
+        #     if dealer_score == player_score:
+        #         print('PUSH LOSER')
+        #     if dealer_score == 21:
+        #         print('Dealer Wins, Dealer has Blackjack')
+        #     if player_score == 21:
+        #         print('YOU GOT BLACKJACK')
 
-            do_i_hit = standardize(input('would you like to hit or stand?(hit/stand): '))
-            if do_i_hit == 'hit':
-                print('dealing hands..."')
-                hit(player_hand)
-                print("Player hands: ")
-                draw_cards(player_hand)
-                draw_cards(player_split_hand)
-                print("Dealer hand: ")
-                draw_cards(dealer_hand)
-            elif do_i_hit == 'stand':
-                break
-            else:
-                print("Please choose a valid option")
-        break
+        # Yes and No to play again
+
     # Yes and No to play again
     play_again = standardize(input("do you want to play again? Yes or NO?\n"))
     if play_again == "yes":
