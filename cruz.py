@@ -10,7 +10,6 @@ dealer_hand = []
 # Valuing
 
 
-
 def hit(hand):
     hand.append(deck.pop(0))
 
@@ -76,16 +75,20 @@ print(f'dealer hand: {dealer_hand}')
 
 dealer_score = 0
 
+# Testing
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
         return 10
-    elif card[0] == 'A':
+    if card[0] == 'A':
         if dealer_score >= 11:
             return 1
         if dealer_score < 11:
             return 11
+    if card[1] == 'A':
+        return 1
     else:
         return int(card[0])
+
 
 # hitting aspect of player
 while True:
@@ -104,8 +107,9 @@ while True:
         continue
     if dealer_score >= 17:
         print(dealer_hand)
-        print("staying")
+        print("STAYING")
         break
+
 print(dealer_score)
 # Total value of cards
 
