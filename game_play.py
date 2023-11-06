@@ -4,6 +4,8 @@ import string
 hand_score = 0
 game_score = 0
 
+player_pts = 0
+dealer_pts = 0
 suits = ['♠', '♣', '♢', '♡']
 numbers = [i for i in range(2, 11)] + ['J', 'Q', 'K', 'A']
 deck = []
@@ -169,11 +171,16 @@ while True:
      #   print('PUSH LOSER')
     if dealer_score == 21:
         print('Dealer Wins, Dealer has Blackjack')
+        dealer_pts += 1
 
     elif player_score == 21:
         print('YOU GOT BLACKJACK')
-    print(player_score)
-    print(dealer_score)
+        player_pts += 1
+    print("Player Value:",player_score)
+    print("Dealer Value:",dealer_score)
+
+    if dealer_score == player_score:
+        print('Push')
 
     do_i_hit = standardize(input('would you like to hit or stand?(H/S): '))
     if do_i_hit == 'h':
@@ -194,6 +201,7 @@ elif play_again == "no":
     print("Game End!\n")
     # break out of game loop
 print(f"Game Score:", game_score)
+
 # credit
 print(f"UI created by: Martin, Okkar, Brodie, and Pika.")
 print(f"Dealer Tasks created by: Indy, Obeth, and Mason.")
