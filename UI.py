@@ -284,6 +284,7 @@ def game_loop(double_down):
 
     # comparisons here
     # True if player wins false if not
+
     if who_wins(player_score, dealer_score):
         print('Player wins')
         if double_down:
