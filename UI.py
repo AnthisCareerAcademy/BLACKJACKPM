@@ -12,14 +12,26 @@ dealer_points = 0
 player_points = 0
 
 
+def card_value(hand):
 
-def card_value(card):
-    if card[0] in ['J', 'Q', 'K']:
-        return 10
-    elif card[0] == 'A':
-        return 11
-    else:
-        return int(card[0])
+    ace_count = 0
+    for card in hand:
+        if card[0] in ['J', 'Q', 'K']:
+            return_value = 10
+        elif card[0] == 'A':
+            return_value = 11
+            ace_count += 1
+            #         if busts:
+            #             return 1
+            #         else:
+            #             return 11
+        else:
+            return_value = int(card[0])
+
+    while return_value > 21 and ace_count > 0:
+        return_value -= 10
+        ace_count -= 1
+    return return_value
 
 
 def draw_cards(hand, isDealer):
@@ -65,7 +77,6 @@ def draw_cards(hand, isDealer):
                     drawn_card.append("|         |")
 
         if drawn_card:
-
             complete_drawn_hand.append(drawn_card[:])
             drawn_card.clear()
     #     for card in hand:
@@ -89,7 +100,7 @@ def bust_check(hand, is_hand) -> bool:
     if is_hand:
 
         while True:
-            hand_score = sum(card_value(card) for card in hand)
+            hand_score = card_value(hand)
             if hand_score > 21:
                 return True
             else:
@@ -279,7 +290,7 @@ def game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-        player_score = sum(card_value(card) for card in player_hand)
+        player_score = card_value(player_hand)
 
         if bust_check(player_hand, True):
             print("YOU BUSTED")
@@ -287,7 +298,7 @@ def game_loop(double_down):
 
     # Dealer Code here
     while not bust_check(dealer_hand, True):
-        dealer_score = sum(card_value(card) for card in dealer_hand)
+        dealer_score = card_value(dealer_hand)
 
         if bust_check(dealer_hand, True):
             print("DEALER BUST")
@@ -387,8 +398,8 @@ def split_game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-        player_score = sum(card_value(card) for card in player_hand)
-        player_split_score = sum(card_value(card) for card in player_split_hand)
+        player_score = card_value(player_hand)
+        player_split_score = card_value(player_split_hand)
 
         if bust_check(player_hand, True):
             print("YOU BUSTED")
@@ -415,14 +426,14 @@ def split_game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-        player_score = sum(card_value(card) for card in player_hand)
+        player_score = card_value(player_hand)
 
         if bust_check(player_split_hand, True):
             print("YOU BUSTED")
             break
 
     while not bust_check(dealer_hand, True):
-        dealer_score = sum(card_value(card) for card in dealer_hand)
+        dealer_score = card_value(dealer_hand)
 
         if bust_check(dealer_hand, True):
             print("DEALER BUST")
