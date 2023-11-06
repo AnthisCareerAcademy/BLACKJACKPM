@@ -71,11 +71,18 @@ def hit(hand):
     hand.append(deck.pop(0))
 
 
-def bust_check(hand) -> bool:
+def bust_check(hand, is_hand) -> bool:
     # bust
-    while True:
-        hand_score = sum(card_value(card) for card in hand)
-        if hand_score > 21:
+    if is_hand:
+
+        while True:
+            hand_score = sum(card_value(card) for card in hand)
+            if hand_score > 21:
+                return True
+            else:
+                return False
+    else:
+        if hand > 21:
             return True
         else:
             return False
@@ -95,6 +102,17 @@ def can_split(hand) -> bool:
 
 def standardize(string_to_standardize) -> string:
     return string_to_standardize.lower().strip()
+
+
+def who_wins(player_score, dealer_score) -> bool:
+    if player_score == dealer_score:
+        return False
+    elif player_score == 21:
+        return True
+    elif dealer_score == 21:
+        return False
+    else:
+        return None
 
 
 # only called when we already ask the user if they want to split
@@ -162,6 +180,10 @@ def standardize(string_to_standardize) -> string:
 
 def game_loop(double_down):
     global splitable
+    dealer_points = 0
+    player_points = 0
+    player_score = 0
+    dealer_score = 0
     if deck:
         deck.clear()
     if player_hand:
@@ -211,7 +233,6 @@ def game_loop(double_down):
     while True:
 
         # Dealer Scoring
-
         if player_hand[0][0] == player_hand[1][0]:
             if splitable:
                 while True:
@@ -239,14 +260,17 @@ def game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-    player_score = sum(card_value(card) for card in player_hand)
+        player_score = sum(card_value(card) for card in player_hand)
 
+        if bust_check(player_hand, True):
+            print("YOU BUSTED")
+            break
 
     # Dealer Code here
-    while not bust_check(dealer_hand):
+    while not bust_check(dealer_hand, True):
         dealer_score = sum(card_value(card) for card in dealer_hand)
 
-        if bust_check(dealer_hand):
+        if bust_check(dealer_hand, True):
             draw_cards(dealer_hand)
             print("DEALER BUST")
             break
@@ -260,15 +284,31 @@ def game_loop(double_down):
 
     # comparisons here
     # True if player wins false if not
-    if who_wins(player_score, dealer_score) is True:
+    if who_wins(player_score, dealer_score):
         print('Player wins')
-    elif who_wins(player_score, dealer_score) is False:
+        if double_down:
+            player_points += 2
+        else:
+            player_points += 1
+    elif not who_wins(player_score, dealer_score):
         print('Dealer wins')
+        if double_down:
+            dealer_points += 2
+        else:
+            dealer_points += 1
+
     else:
-        double_down = standardize(input('would you like to double down?(Y/N): '))
-        if double_down == 'Y':
-            print('doubling bet..."')
-            game_loop(True)
+        while True:
+
+            double_down = standardize(input('would you like to double down?(yes/no): '))
+            if double_down == 'yes':
+                print('doubling bet..."')
+                break
+                game_loop(True)
+            elif double_down == 'no':
+                pass
+            else:
+                print("Please choose a valid option.")
         # THIS IS USER STUFF NOT SUPPOSED TO BE IN DEALERS STUFF
         #         if player_score > 21:
         #             print(player_hand)
@@ -281,7 +321,6 @@ def game_loop(double_down):
         #             if double_down == 'N':
         #                 print('moving to dealer')
         #             break
-
 
     # Some comparison work that some people didn't even finish???? -Martin
     #     if dealer_score == player_score:
@@ -307,15 +346,14 @@ def split_game_loop(double_down):
     # hitting aspect of player
     while True:
 
-        # Dealer Scoring
-        if sum(card_value(card) for card in player_hand) > sum(card_value(card) for card in player_split_hand):
-            player_score = sum(card_value(card) for card in player_hand)
-        elif sum(card_value(card) for card in player_hand) < sum(card_value(card) for card in player_split_hand):
-            player_score = sum(card_value(card) for card in player_split_hand)
-        else:
-            player_score = sum(card_value(card) for card in player_split_hand)
+        # Dealer Scoring if sum(card_value(card) for card in player_hand) > sum(card_value(card) for card in
+        # player_split_hand): player_score = sum(card_value(card) for card in player_hand) elif sum(card_value(card)
+        # for card in player_hand) < sum(card_value(card) for card in player_split_hand): player_score = sum(
+        # card_value(card) for card in player_split_hand) else: player_score = sum(card_value(card) for card in
+        # player_split_hand)
 
         dealer_score = sum(card_value(card) for card in dealer_hand)
+        player_score = sum(card_value(card) for card in player_hand)
         if dealer_score == player_score:
             print('PUSH LOSER')
         if dealer_score == 21:
@@ -331,13 +369,13 @@ def split_game_loop(double_down):
         while True:
             do_i_hit = standardize(input('would you like to hit or stand?(hit/stand): '))
             if do_i_hit == 'hit':
+                draw_cards(dealer_hand)
                 print('dealing hands..."')
                 hit(player_hand)
                 print("Player hands: ")
                 draw_cards(player_hand)
                 draw_cards(player_split_hand)
                 print("Dealer hand: ")
-                draw_cards(dealer_hand)
             elif do_i_hit == 'stand':
                 print("Player hands: ")
                 draw_cards(player_hand)
@@ -368,7 +406,7 @@ def split_game_loop(double_down):
     play_again = standardize(input("do you want to play again? Yes or NO?\n"))
     if play_again == "yes":
         print("Starting a new game!")
-        game_loop()
+        game_loop(None)
     elif play_again == "no":
         print("Game End!\n")
         # break out of game loop
