@@ -10,17 +10,6 @@ dealer_wins =[]
 
 def hit(hand):
     hand.append(deck.pop(0))
-# Valuing
-def card_value(card):
-    if card[0] in ['J', 'Q', 'K']:
-        return 10
-    elif card[0] == 'A':
-        return 11
-    else:
-        return int(card[0])
-
-
-
 
 
 
@@ -102,27 +91,37 @@ draw_cards(player_hand)
 # showing the hands (example)
 print(f'player hand: {player_hand}')
 print(f'dealer hand: {dealer_hand}')
+def card_value(card):
+    if card[0] in ['J', 'Q', 'K']:
+        return 10
+    if card[0] == 'A':
+        if dealer_score >= 11:
+            return 1
+        if dealer_score < 11:
+            return 11
+    else:
+        return int(card[0])
+
 
 # hitting aspect of player
 while True:
-    # DEALER SCORING
-    player_score = sum(card_value(card) for card in player_hand)
+    # hitting aspect of player
     dealer_score = sum(card_value(card) for card in dealer_hand)
-
-    if 'A' in dealer_hand:
-        if dealer_score > 21:
-            dealer_score -= 10
-    if 'A' in player_hand:
-        if player_score > 21:
-            player_score -= 10
-
-
-
-
-
-
-
-
+    if dealer_score == 21:
+        print(dealer_hand)
+        print('DEALER WINS, DEALER HAS BLACKJACK')
+        break
+    if dealer_score > 21:
+        print(dealer_hand)
+        print("DEALER BUST")
+        break
+    if dealer_score <= 16:
+        hit(dealer_hand)
+        continue
+    if dealer_score >= 17:
+        print(dealer_hand)
+        print("STAYING")
+        break
 
     if dealer_score == 21:
         print('DEALER WINS, DEALER HAS BLACKJACK')
@@ -134,7 +133,6 @@ while True:
         print("staying")
         print(dealer_score)
         break
-    print(player_score)
     print(dealer_score)
 
 
