@@ -44,7 +44,7 @@ for suit in suits:
     for num in numbers:
         deck.append([num, suit])
 # shuffling the deck
-random.shuffle(deck)
+# random.shuffle(deck)
 
 # checking out the deck
 print(deck)
@@ -61,11 +61,13 @@ print("Welcome to BlackJack\n")
 
 
 # populating the hands with cards
-player_hand.append(deck.pop())
-dealer_hand.append(deck.pop())
-player_hand.append(deck.pop())
-dealer_hand.append(deck.pop())
-
+# player_hand.append(deck.pop())
+#dealer_hand.append(deck.pop())
+#player_hand.append(deck.pop())
+#dealer_hand.append(deck.pop())
+dealer_hand.append(deck.pop(12))
+dealer_hand.append(deck.pop(24))
+dealer_hand.append(deck.pop(36))
 # test
 draw_cards(player_hand)
 
@@ -100,15 +102,17 @@ while True:
         break
     if dealer_score > 21:
         print(dealer_hand)
-        print("DEALER BUST")
+        for i in dealer_hand:
+            if 'A' in i:
+                if dealer_score > 21:
+                    dealer_score -= 10
         break
-    if dealer_score <= 16:
-        hit(dealer_hand)
-        continue
+
     if dealer_score >= 17:
         print(dealer_hand)
         print("STAYING")
         break
+
 
 print(dealer_score)
 # Total value of cards
