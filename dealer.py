@@ -55,12 +55,13 @@ for suit in suits:
     for num in numbers:
         deck.append([num, suit])
 # shuffling the deck
-random.shuffle(deck)
+#random.shuffle(deck)
 
 # checking out the deck
 print(deck)
 
 # Intro for the games stating your name and age, then rules
+"""
 print("Welcome to BlackJack\n")
 
 # name = input('Would you state your name:')
