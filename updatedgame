@@ -1,1 +1,8 @@
+if player_score > 21:
+    print("YOU BUST, DEALER WINS")
+if player_score > dealer_score and player_score < 21:
+    print("PLAYER WINS")
+
+if dealer_score > player_score and dealer_score < 21:
+    print("DEALER WINS")
 
