@@ -21,7 +21,7 @@ def card_value(card):
         return int(card[0])
 
 
-def draw_cards(hand):
+def draw_cards(hand, isDealer):
     complete_drawn_hand = []
     drawn_card = []
     mutable = []
@@ -37,26 +37,36 @@ def draw_cards(hand):
     # building algorithm for drawing the hand
     # however long the hand is that's how many cards we'll generate
     for index in range(len(hand)):
+        if isDealer and index == 0:
+            complete_drawn_hand.append(
+                [" _________ ", "|???      |", "|         |", "|   ???   |", "|         |", "|______???|"])
         for beep in range(6):
-            # so long as the index in not equal to any of those
-            if beep == 0:
-                drawn_card.append(" _________ ")
-            elif beep == 1:
-                drawn_card.append(f"|{hand[index][1]}        |")
-            elif beep == 3:
-                mutable.append(f"|   {hand[index][0]}")
-                if len(str(hand[index][0])) == 2:
-                    mutable.append("    |")
-                else:
-                    mutable.append("     |")
-                drawn_card.append("".join(mutable))
-                mutable.clear()
-            elif beep == 5:
-                drawn_card.append(f"|________{hand[index][1]}|")
+            if isDealer and index == 0:
+                continue
             else:
-                drawn_card.append("|         |")
-        complete_drawn_hand.append(drawn_card[:])
-        drawn_card.clear()
+
+                # so long as the index in not equal to any of those
+                if beep == 0:
+                    drawn_card.append(" _________ ")
+                elif beep == 1:
+                    drawn_card.append(f"|{hand[index][1]}        |")
+                elif beep == 3:
+                    mutable.append(f"|   {hand[index][0]}")
+                    if len(str(hand[index][0])) == 2:
+                        mutable.append("    |")
+                    else:
+                        mutable.append("     |")
+                    drawn_card.append("".join(mutable))
+                    mutable.clear()
+                elif beep == 5:
+                    drawn_card.append(f"|________{hand[index][1]}|")
+                else:
+                    drawn_card.append("|         |")
+
+        if drawn_card:
+
+            complete_drawn_hand.append(drawn_card[:])
+            drawn_card.clear()
     #     for card in hand:
     #
     # showing the hands (example)
@@ -233,9 +243,9 @@ def game_loop(double_down):
     hit(dealer_hand)
 
     print(f'player hand: ')
-    draw_cards(player_hand)
+    draw_cards(player_hand, False)
     print(f'dealer hand: ')
-    draw_cards(dealer_hand)
+    draw_cards(dealer_hand, True)
 
     # hitting aspect of player
     while True:
@@ -261,7 +271,7 @@ def game_loop(double_down):
             print('dealing hands..."')
             hit(player_hand)
             print(f'players hand: ')
-            draw_cards(player_hand)
+            draw_cards(player_hand, False)
         elif do_i_hit == 'stand':
             print('moving on to dealer')
             break
@@ -279,20 +289,20 @@ def game_loop(double_down):
         dealer_score = sum(card_value(card) for card in dealer_hand)
 
         if bust_check(dealer_hand, True):
-            draw_cards(dealer_hand)
             print("DEALER BUST")
             break
         elif dealer_score <= 16:
             hit(dealer_hand)
-            draw_cards(dealer_hand)
             continue
         elif dealer_score >= 17:
-            draw_cards(dealer_hand)
             break
 
     # comparisons here
     # True if player wins false if not
-
+    print("Player hand: ")
+    draw_cards(player_hand, False)
+    print("Dealer hand: ")
+    draw_cards(dealer_hand, False)
     if who_wins(player_score, dealer_score):
         print('Player wins')
         if double_down:
@@ -367,8 +377,8 @@ def split_game_loop(double_down):
             print('dealing hands..."')
             hit(player_hand)
             print(f'players hand: ')
-            draw_cards(player_hand)
-            draw_cards(player_split_hand)
+            draw_cards(player_hand, False)
+            draw_cards(player_split_hand, False)
         elif do_i_hit == 'stand':
             break
         else:
@@ -395,8 +405,8 @@ def split_game_loop(double_down):
             print('dealing hands..."')
             hit(player_split_hand)
             print(f'players hand: ')
-            draw_cards(player_hand)
-            draw_cards(player_split_hand)
+            draw_cards(player_hand, False)
+            draw_cards(player_split_hand, False)
         elif do_i_hit == 'stand':
             break
         else:
@@ -418,12 +428,15 @@ def split_game_loop(double_down):
             hit(dealer_hand)
             continue
         elif dealer_score >= 17:
-            draw_cards(dealer_hand)
             break
 
     # comparisons here
     # True if player wins false if not
-
+    print("Player hands: ")
+    draw_cards(player_hand, False)
+    draw_cards(player_split_hand, False)
+    print("Dealer hand: ")
+    draw_cards(dealer_hand, False)
     if who_wins(player_score, dealer_score) or who_wins(player_split_score, dealer_score):
         print('Player wins')
         if double_down:
