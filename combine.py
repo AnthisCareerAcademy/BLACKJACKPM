@@ -244,6 +244,19 @@ def game_loop(double_down):
     while not bust_check(dealer_hand):
         dealer_score = sum(card_value(card) for card in dealer_hand)
 
+        if 'A' in dealer_hand:
+            if dealer_score > 21:
+                dealer_score -= 10
+                return dealer_score
+
+
+
+
+
+
+
+
+
         if dealer_score > 21:
             print(dealer_hand)
             print("DEALER BUST")
@@ -269,7 +282,7 @@ def game_loop(double_down):
 
 
     if dealer_score == player_score:
-        print('PUSH LOSER')
+        print('Tie')
     if dealer_score == 21:
         print('Dealer Wins, Dealer has Blackjack')
     if player_score == 21:
