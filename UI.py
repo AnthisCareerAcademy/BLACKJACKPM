@@ -12,6 +12,7 @@ dealer_points = 0
 player_points = 0
 
 
+
 def card_value(card):
     if card[0] in ['J', 'Q', 'K']:
         return 10
@@ -350,6 +351,8 @@ def game_loop(double_down):
     #         print('YOU GOT BLACKJACK')
 
     # Yes and No to play again
+    print('Player Points:', player_points)
+    print('Dealer Points:', dealer_points)
     play_again = standardize(input("do you want to play again? Yes or NO?\n"))
     if play_again == "yes":
         print("Starting a new game!")
