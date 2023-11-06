@@ -84,8 +84,6 @@ def card_value(card):
             return 1
         if dealer_score < 11:
             return 11
-    if card[1] == 'A':
-        return 1
     else:
         return int(card[0])
 
