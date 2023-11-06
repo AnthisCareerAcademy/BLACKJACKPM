@@ -67,7 +67,6 @@ print("Welcome to BlackJack\n")
 #dealer_hand.append(deck.pop())
 dealer_hand.append(deck.pop(12))
 dealer_hand.append(deck.pop(24))
-dealer_hand.append(deck.pop(36))
 # test
 draw_cards(player_hand)
 
