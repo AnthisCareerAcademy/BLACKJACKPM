@@ -289,8 +289,6 @@ def game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-        player_score = card_value(player_hand)
-
         if bust_check(player_hand, True):
             print("YOU BUSTED")
             break
@@ -314,13 +312,18 @@ def game_loop(double_down):
     draw_cards(player_hand, False)
     print("Dealer hand: ")
     draw_cards(dealer_hand, False)
+    player_score = card_value(player_hand)
+    dealer_score = card_value(dealer_hand)
+    print(f"Player score: {player_score}")
+    print(f"Dealer score: {dealer_score}")
     if who_wins(player_score, dealer_score):
         print('Player wins')
         if double_down:
             player_points += 2
         else:
             player_points += 1
-    elif not who_wins(player_score, dealer_score):
+    elif who_wins(player_score, dealer_score) == False:
+        
         print('Dealer wins')
         if double_down:
             dealer_points += 2
@@ -397,8 +400,7 @@ def split_game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-        player_score = card_value(player_hand)
-        player_split_score = card_value(player_split_hand)
+
 
         if bust_check(player_hand, True):
             print("YOU BUSTED")
@@ -425,7 +427,6 @@ def split_game_loop(double_down):
         else:
             print('Please choose a valid option')
 
-        player_score = card_value(player_hand)
 
         if bust_check(player_split_hand, True):
             print("YOU BUSTED")
@@ -450,13 +451,17 @@ def split_game_loop(double_down):
     draw_cards(player_split_hand, False)
     print("Dealer hand: ")
     draw_cards(dealer_hand, False)
+    player_score = card_value(player_hand)
+    player_split_score = card_value(player_split_hand)
+    print(f"Player score: {player_score}")
+    print(f"Dealer score: {dealer_score}")
     if who_wins(player_score, dealer_score) or who_wins(player_split_score, dealer_score):
         print('Player wins')
         if double_down:
             player_points += 2
         else:
             player_points += 1
-    elif not who_wins(player_score, dealer_score) or not who_wins(player_split_score, dealer_score):
+    elif who_wins(player_split_score, dealer_score) == False or who_wins(player_score, dealer_score) == False:
         print('Dealer wins')
         if double_down:
             dealer_points += 2
