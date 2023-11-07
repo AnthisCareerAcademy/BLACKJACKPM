@@ -13,21 +13,20 @@ player_points = 0
 
 
 def card_value(hand):
-
+    return_value = 0
     ace_count = 0
     for card in hand:
         if card[0] in ['J', 'Q', 'K']:
-            return_value = 10
+            return_value += 10
         elif card[0] == 'A':
-            return_value = 11
+            return_value += 11
             ace_count += 1
             #         if busts:
             #             return 1
             #         else:
             #             return 11
         else:
-            return_value = int(card[0])
-
+            return_value += int(card[0])
     while return_value > 21 and ace_count > 0:
         return_value -= 10
         ace_count -= 1
